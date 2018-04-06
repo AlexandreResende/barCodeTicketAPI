@@ -8,4 +8,6 @@ const {
 
 router.get('/', checkBarCodeTicket);
 
+router.post('/', checkBarCodeTicket);
+
 module.exports = router;
