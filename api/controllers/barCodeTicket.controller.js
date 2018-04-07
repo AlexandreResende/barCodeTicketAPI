@@ -12,7 +12,21 @@ module.exports.getCheckBarCodeTicket = (req, res) => {
 }
 
 module.exports.postCheckBarCodeTicket = (req, res) => {
-  res.status(200).send({
-    message: `Hello there`
-  });
+  const { barCodeNumber } = req.body;
+  const barCodeNumberValidation = Joi.validate(barCodeNumber, inputValidationSchema);
+
+  Promise
+    .all([barCodeNumberValidation])
+    .then((barCodeValidationResult) => {
+      res.status(200).send({
+        result: `Worked`,
+        error: null,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        result: null,
+        error: `An error occurred in the application. ${err}`,
+      });
+    });
 }
