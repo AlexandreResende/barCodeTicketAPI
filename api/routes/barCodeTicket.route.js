@@ -3,11 +3,12 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  checkBarCodeTicket
+  getCheckBarCodeTicket,
+  postCheckBarCodeTicket,
 } = require('../controllers/barCodeTicket.controller');
 
-router.get('/', checkBarCodeTicket);
+router.get('/', getCheckBarCodeTicket);
 
-router.post('/', checkBarCodeTicket);
+router.post('/', postCheckBarCodeTicket);
 
 module.exports = router;

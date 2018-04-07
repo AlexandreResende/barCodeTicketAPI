@@ -1,7 +1,17 @@
 
 const Joi = require('joi');
 
-module.exports.checkBarCodeTicket = (req, res) => {
+const {
+  inputValidationSchema,
+} = require('./validationSchema/inputValidationSchema');
+
+module.exports.getCheckBarCodeTicket = (req, res) => {
+  res.status(200).send({
+    message: `Hello there`
+  });
+}
+
+module.exports.postCheckBarCodeTicket = (req, res) => {
   res.status(200).send({
     message: `Hello there`
   });
