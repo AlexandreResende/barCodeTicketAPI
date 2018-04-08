@@ -9,7 +9,7 @@ const breakNumberStringAndSumIt = (numberString) => {
     .reduce((acc, number) => acc + number, 0);
 };
 
-const validateBankFieldCheckerDigit = (field, checkerDigit) => {
+const validateFieldCheckerDigit = (field, checkerDigit) => {
   let sum = 0;
   let multiplierFlag = true;
   const reversedSplitField = field.slice(0).split('').reverse();
@@ -70,19 +70,21 @@ const validateBankCheckerDigit = (barCodeNumber) => {
 
 const validateDealershipCheckerDigit = (barCodeNumber) => {};
 
+const validateDealershipFieldCheckerDigit = (barCodeNumber) => {};
+
 const validateCheckerDigit = (barCodeNumber) => {
   const ticketTypeResult = ticketType(barCodeNumber);
 
   if (ticketTypeResult === 'bank') {
-    const validateFirstField = validateBankFieldCheckerDigit(
+    const validateFirstField = validateFieldCheckerDigit(
       barCodeNumber.substring(0, 9),
       barCodeNumber[9],
     );
-    const validateSecondField = validateBankFieldCheckerDigit(
+    const validateSecondField = validateFieldCheckerDigit(
       barCodeNumber.substring(10, 20),
       barCodeNumber[20],
     );
-    const validateThirdField = validateBankFieldCheckerDigit(
+    const validateThirdField = validateFieldCheckerDigit(
       barCodeNumber.substring(21, 31),
       barCodeNumber[31], 
     );
@@ -95,7 +97,35 @@ const validateCheckerDigit = (barCodeNumber) => {
       && validateThirdField
       && validateBarCodeCheckerDigit;
   } else if (ticketTypeResult === 'dealership') {
-
+    const validateFirstField = validateFieldCheckerDigit(
+      barCodeNumber.substring(0, 11),
+      barCodeNumber[11],
+    );
+    const validateSecondField = validateFieldCheckerDigit(
+      barCodeNumber.substring(12, 23),
+      barCodeNumber[23],
+    );
+    const validateThirdField = validateFieldCheckerDigit(
+      barCodeNumber.substring(24, 35),
+      barCodeNumber[35],
+    );
+    const validateFourthField = validateFieldCheckerDigit(
+      barCodeNumber.substring(26, 47),
+      barCodeNumber[47],
+    );
+    /* const validateBarCodeCheckerDigit = validateDealershipCheckerDigit(
+      barCodeNumber,
+    ); */
+    console.log('AKI');
+    console.log(validateFirstField);
+    console.log(validateSecondField);
+    console.log(validateThirdField);
+    console.log(validateFourthField);
+    return validateFirstField 
+      && validateSecondField
+      && validateThirdField
+      && validateFourthField;
+      //&& validateBarCodeCheckerDigit;
   }
   return false;
 };
