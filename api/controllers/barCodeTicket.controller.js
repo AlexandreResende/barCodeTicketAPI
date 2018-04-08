@@ -6,6 +6,9 @@ const {
 } = require('./validationSchema/inputValidationSchema');
 
 module.exports.getCheckBarCodeTicket = (req, res) => {
+  const barCodeNumber = {
+    barCodeNumber: req.query.barCodeNumber,
+  };
   res.status(200).send({
     message: `Hello there`
   });
