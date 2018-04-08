@@ -3,7 +3,7 @@ const chai = require('chai');
 const roundTo = require('round-to');
 const expect = chai.expect;
 
-const getBarCodeValue = require('../api/helper/getBarCodeValue');
+const getBarCodeValue = require('../api/helper/getBankBarCodeValue');
 
 describe(`Test getBarCodeValue module`, () => {
   let barCodeNumber;
