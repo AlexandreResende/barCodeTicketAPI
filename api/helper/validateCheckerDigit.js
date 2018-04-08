@@ -68,9 +68,23 @@ const validateBankCheckerDigit = (barCodeNumber) => {
   return checkerDigitCalculated == barCodeCheckerDigit;
 };
 
-const validateDealershipCheckerDigit = (barCodeNumber) => {};
+const validateDealershipCheckerDigit = (barCodeNumber) => {
+  const ticketType = 'dealership';
+  const generalCheckerDigitPosition = 3;
+  const checkerDigit = barCodeNumber[generalCheckerDigitPosition];
+  const barCodeNumberArray = barCodeNumber
+    .slice(0)
+    .split('');
 
-const validateDealershipFieldCheckerDigit = (barCodeNumber) => {};
+  for (let digit of checkerDigitPosition[ticketType]) {
+    barCodeNumberArray.splice(digit, 1);
+  }
+  barCodeNumberArray.splice(generalCheckerDigitPosition, 1);
+
+  const newBarCodeNumber = barCodeNumberArray.join('');
+
+  return validateFieldCheckerDigit(newBarCodeNumber, checkerDigit);
+};
 
 const validateCheckerDigit = (barCodeNumber) => {
   const ticketTypeResult = ticketType(barCodeNumber);
@@ -113,19 +127,15 @@ const validateCheckerDigit = (barCodeNumber) => {
       barCodeNumber.substring(26, 47),
       barCodeNumber[47],
     );
-    /* const validateBarCodeCheckerDigit = validateDealershipCheckerDigit(
+    const validateBarCodeCheckerDigit = validateDealershipCheckerDigit(
       barCodeNumber,
-    ); */
-    console.log('AKI');
-    console.log(validateFirstField);
-    console.log(validateSecondField);
-    console.log(validateThirdField);
-    console.log(validateFourthField);
+    );
+
     return validateFirstField 
       && validateSecondField
       && validateThirdField
-      && validateFourthField;
-      //&& validateBarCodeCheckerDigit;
+      && validateFourthField
+      && validateBarCodeCheckerDigit;
   }
   return false;
 };
