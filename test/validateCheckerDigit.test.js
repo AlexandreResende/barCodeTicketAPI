@@ -18,7 +18,7 @@ describe(`Test validateCheckerDigit module`, () => {
       done();
     });
 
-    it.only(`should return true for valid dealership ticket`, (done) => {
+    it(`should return false for valid dealership ticket`, (done) => {
       const expectedValue = false;
       const barCodeNumber = '846800000009799001090114001512793801300995016940';
       const validateCheckerDigitResult = validateCheckerDigit(barCodeNumber);
