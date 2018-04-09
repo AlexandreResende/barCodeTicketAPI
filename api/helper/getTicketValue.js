@@ -1,7 +1,7 @@
 
 const checkerDigitPosition = require('./checkerDigitPosition.json');
 
-const getBankBarCodeValue = (barCodeNumber) => {
+const getBarCodeValue = (barCodeNumber) => {
   if (barCodeNumber.length === 47) {
     return barCodeNumber.substring(37) / 100;
   } else {
@@ -21,4 +21,4 @@ const getBankBarCodeValue = (barCodeNumber) => {
   }
 };
 
-module.exports = getBankBarCodeValue;
+module.exports = getBarCodeValue;

@@ -1,109 +1,29 @@
 
-const checkerDigitPosition = require('./checkerDigitPosition.json');
 const ticketType = require('./ticketType');
+const checkerDigitPosition = require('./checkerDigitPosition.json');
+const validateFieldCheckerDigit = require('./validateFieldCheckerDigit');
+const breakNumberStringAndSumIt = require('./breakNumberStringAndSumIt');
+const validateBankCheckerDigit = require('./validateBankCheckerDigit');
+const validateDealershipCheckerDigit = require('./validateDealershipCheckerDigit');
 
-const breakNumberStringAndSumIt = (numberString) => {
-  return numberString
-    .split('')
-    .map(Number)
-    .reduce((acc, number) => acc + number, 0);
-};
-
-const validateFieldCheckerDigit = (field, checkerDigit) => {
-  let sum = 0;
-  let multiplierFlag = true;
-  const reversedSplitField = field.slice(0).split('').reverse();
-  
-  for (let digit of reversedSplitField) {
-    if (multiplierFlag) {
-      sum += breakNumberStringAndSumIt(String(digit * 2));
-    } else {
-      sum += breakNumberStringAndSumIt(String(digit));
-    }
-    multiplierFlag = !multiplierFlag;
-  }
-
-  const checkerDigitCalculated = (10 - (sum % 10) === 10) ? 0 : 10 - (sum % 10);
-
-  return checkerDigit == checkerDigitCalculated;
-};
-
-const validateBankCheckerDigit = (barCodeNumber) => {
-  let multiplier = 2;
-  let sum = 0;
-  const referenceNumber = 11;
-  const barCodeCheckerDigit = barCodeNumber[32];
-  const ticketTypeName = ticketType(barCodeNumber);
-  const bankCode = barCodeNumber.substring(0, 3);
-  const currencyCode = barCodeNumber[3];
-  const dueDate = barCodeNumber.substring(33, 37);
-  const ticketValue = barCodeNumber.substring(37);
-  const freeField = barCodeNumber.substring(4, 9)
-    + barCodeNumber.substring(10, 20)
-    + barCodeNumber.substring(21, 31);
-
-  const barCode = `${bankCode}${currencyCode}${dueDate}${ticketValue}${freeField}`;
-  const reversedSplitedbarCodeNumber = barCode
-    .slice(0)
-    .split('')
-    .map(Number)
-    .reverse();
-
-  for (let digit of reversedSplitedbarCodeNumber) {
-    if (multiplier >= 10) {
-      multiplier = 2;
-    }
-    sum += multiplier * digit;
-    multiplier++;
-  }
-
-  const remainderOfDivisionByEleven = sum % referenceNumber;
-  let checkerDigitCalculated = referenceNumber - remainderOfDivisionByEleven;
-
-  checkerDigitCalculated = (
-    checkerDigitCalculated == 0
-    || checkerDigitCalculated == 10
-    || checkerDigitCalculated == 11) ? 1 : checkerDigitCalculated;
-
-  return checkerDigitCalculated == barCodeCheckerDigit;
-};
-
-const validateDealershipCheckerDigit = (barCodeNumber) => {
-  const ticketType = 'dealership';
-  const generalCheckerDigitPosition = 3;
-  const checkerDigit = barCodeNumber[generalCheckerDigitPosition];
-  const barCodeNumberArray = barCodeNumber
-    .slice(0)
-    .split('');
-
-  for (let digit of checkerDigitPosition[ticketType]) {
-    barCodeNumberArray.splice(digit, 1);
-  }
-  barCodeNumberArray.splice(generalCheckerDigitPosition, 1);
-
-  const newBarCodeNumber = barCodeNumberArray.join('');
-
-  return validateFieldCheckerDigit(newBarCodeNumber, checkerDigit);
-};
-
-const validateCheckerDigit = (barCodeNumber) => {
-  const ticketTypeResult = ticketType(barCodeNumber);
+const validateCheckerDigit = (ticketTypedLine) => {
+  const ticketTypeResult = ticketType(ticketTypedLine);
 
   if (ticketTypeResult === 'bank') {
     const validateFirstField = validateFieldCheckerDigit(
-      barCodeNumber.substring(0, 9),
-      barCodeNumber[9],
+      ticketTypedLine.substring(0, 9),
+      ticketTypedLine[9],
     );
     const validateSecondField = validateFieldCheckerDigit(
-      barCodeNumber.substring(10, 20),
-      barCodeNumber[20],
+      ticketTypedLine.substring(10, 20),
+      ticketTypedLine[20],
     );
     const validateThirdField = validateFieldCheckerDigit(
-      barCodeNumber.substring(21, 31),
-      barCodeNumber[31], 
+      ticketTypedLine.substring(21, 31),
+      ticketTypedLine[31], 
     );
     const validateBarCodeCheckerDigit = validateBankCheckerDigit(
-      barCodeNumber,
+      ticketTypedLine,
     );
 
     return validateFirstField 
@@ -112,23 +32,23 @@ const validateCheckerDigit = (barCodeNumber) => {
       && validateBarCodeCheckerDigit;
   } else if (ticketTypeResult === 'dealership') {
     const validateFirstField = validateFieldCheckerDigit(
-      barCodeNumber.substring(0, 11),
-      barCodeNumber[11],
+      ticketTypedLine.substring(0, 11),
+      ticketTypedLine[11],
     );
     const validateSecondField = validateFieldCheckerDigit(
-      barCodeNumber.substring(12, 23),
-      barCodeNumber[23],
+      ticketTypedLine.substring(12, 23),
+      ticketTypedLine[23],
     );
     const validateThirdField = validateFieldCheckerDigit(
-      barCodeNumber.substring(24, 35),
-      barCodeNumber[35],
+      ticketTypedLine.substring(24, 35),
+      ticketTypedLine[35],
     );
     const validateFourthField = validateFieldCheckerDigit(
-      barCodeNumber.substring(26, 47),
-      barCodeNumber[47],
+      ticketTypedLine.substring(26, 47),
+      ticketTypedLine[47],
     );
     const validateBarCodeCheckerDigit = validateDealershipCheckerDigit(
-      barCodeNumber,
+      ticketTypedLine,
     );
 
     return validateFirstField 

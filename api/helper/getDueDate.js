@@ -1,8 +1,8 @@
 
-const getDueDate = (barCodeNumber) => {
+const getDueDate = (ticketTypedLine) => {
   const factor = 1000;
   const millisecondsInADay = 86400000;
-  const dueDate = barCodeNumber.substring(33, 37);
+  const dueDate = ticketTypedLine.substring(33, 37);
   const baseDateInMilliseconds = new Date(2000, 6, 3).getTime();
 
   const dueDateInMilliseconds = baseDateInMilliseconds + millisecondsInADay * (dueDate - factor);
