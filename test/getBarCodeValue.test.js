@@ -3,9 +3,9 @@ const chai = require('chai');
 const roundTo = require('round-to');
 const expect = chai.expect;
 
-const getBarCodeValue = require('../api/helper/getBankBarCodeValue');
+const getTicketValue = require('../api/helper/getTicketValue');
 
-describe(`Test getBarCodeValue module`, () => {
+describe(`Test getTicketValue module`, () => {
   let barCodeNumber;
 
   describe(`with dealership barcode numbers`, () => {
@@ -15,7 +15,7 @@ describe(`Test getBarCodeValue module`, () => {
     });
   
     it(`should return value 79.90`, (done) => {
-      const barCodeValue = getBarCodeValue(barCodeNumber);
+      const barCodeValue = getTicketValue(barCodeNumber);
       const expectedValue = 79.90;
   
       expect(roundTo(barCodeValue, 2)).to.equal(expectedValue);
@@ -30,7 +30,7 @@ describe(`Test getBarCodeValue module`, () => {
     });
   
     it(`should return value 3601.25`, (done) => {
-      const barCodeValue = getBarCodeValue(barCodeNumber);
+      const barCodeValue = getTicketValue(barCodeNumber);
       const expectedValue = 3601.25;
 
       expect(roundTo(barCodeValue, 2)).to.equal(expectedValue);
