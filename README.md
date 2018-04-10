@@ -24,6 +24,15 @@ or you can:
 npm test
 ```
 
+or, and finally:
+
+```
+nyc mocha
+```
+
+In the case above you should have nyc installed globally on your PC, for that
+please run the following command: npm install nyc -g
+
 ## Start the application
 
 Simply run:
