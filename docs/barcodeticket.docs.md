@@ -27,7 +27,7 @@
 
   <br />
 
-  **Endpoint:** /barcodeticket?ticketTypedLine=<ticketTypedLineValue> <br />
+  **Endpoint:** /barcodeticket?ticketTypedLine=846700000009799001090114001512793801300995016940 <br />
   **Method:** GET
 
   **Endpoint:** /barcodeticket <br />
