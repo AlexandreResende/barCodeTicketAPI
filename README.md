@@ -12,7 +12,7 @@ Say what the step will be
 npm install
 ```
 
-## Running the tests
+## Running the tests - Server should not be running
 
 ```
 node node_modules/.bin/mocha
